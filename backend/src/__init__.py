@@ -214,7 +214,7 @@ def create_app(test_config=None):
 
         headers = {
             "accept": "application/json",
-            "authorization": "Bearer aff_804629cb290c541d48c4f3f75753be18d1f05ab0"
+            "authorization": "Bearer "+os.getenv('RECOMMEND_SKILLS_API')
         }
 
         response = requests.get(url, headers=headers)
