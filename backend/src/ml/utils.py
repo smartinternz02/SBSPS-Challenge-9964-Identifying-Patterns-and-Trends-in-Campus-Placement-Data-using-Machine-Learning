@@ -104,9 +104,31 @@ def save_df_to_temp(df):
     temp_file_url_path = os.path.join(
         os.path.dirname(__file__), '..', 'static', 'temp', unique_id+'.csv')
 
-    df.to_csv(temp_file_url_path, index=True)
+    df.to_csv(temp_file_url_path)
 
     return '/temp/'+unique_id+'.csv'
+
+
+def deleteTempFiles():
+    directory_path = temp_file_url_path = os.path.join(
+        os.path.dirname(__file__), '..', 'static', 'temp')
+
+    # List all files in the directory
+    file_list = os.listdir(directory_path)
+
+    # Iterate through the files and delete them
+    for filename in file_list:
+        file_path = os.path.join(directory_path, filename)
+        try:
+            if os.path.isfile(file_path):
+                file_extension = os.path.splitext(file_path)[1]
+                print(file_extension)
+                if file_extension != '.txt':
+                    os.remove(file_path)
+
+                    print(f"Deleted file: {file_path}")
+        except Exception as e:
+            print(f"Error deleting {file_path}: {e}")
 
 
 def convert_is_placed_to_zero_ifnot_placed(is_placed, salary):
@@ -139,15 +161,34 @@ def check_columns_and_datatypes(excel_file):
         elif excel_file.filename.endswith(".csv"):
             df = pd.read_csv(excel_file)
         else:
-            return False
+            return True, 'Please upload .csv or .xlsx file only.'
         if set(expected_columns) != set(df.columns):
-            return False
+            return True, 'Column names not matched in the uploaded file.'
 
-        for column, datatype in expected_datatypes.items():
-            if column in df.columns and df[column].dtype != datatype:
-                df[column] = df[column].astype(datatype)
+        # Check for null values in the DataFrame
+        null_check = df.drop(
+            columns=['other_skills', 'name']).isnull().values.any()
 
-        return True
+        if null_check:
+            # There are null values in the file
+            return True, 'File contains empty/null cells. Fill data completely.'
+
+        try:
+            for column, datatype in expected_datatypes.items():
+                if column in df.columns and df[column].dtype != datatype:
+                    df[column] = df[column].astype(datatype)
+        except:
+            return True, column + ' has invalid data type.'
+
+        return False, ''
     except Exception as e:
         print("An error occurred:", traceback.format_exc())
-        return False
+        return True, 'Something is wrong in the uploaded file.'
+
+
+def delete_file(pathname):
+    try:
+        os.remove(pathname)
+        print(f"Deleted file: {pathname}")
+    except Exception as e:
+        print(f"Error deleting file: {e}")
