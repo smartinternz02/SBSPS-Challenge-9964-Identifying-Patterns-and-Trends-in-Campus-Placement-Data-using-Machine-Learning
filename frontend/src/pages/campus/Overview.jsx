@@ -229,7 +229,7 @@ export const Overview = ({ setcampusStats, setdownloadURL }) => {
                         </div>
                     ) : (
                         <UploadBox onUploadClick={onUploadClick}>
-                            Upload .excel or .csv file in the mentioned format
+                            Upload excel file in the mentioned format
                         </UploadBox>
                     )}
                 </Container>

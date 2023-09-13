@@ -43,7 +43,7 @@ export const ProgLangVsDSA = ({ data }) => {
                             style: {
                                 fontFamily: 'var(--font-secondary)',
                             },
-                            text: 'Projects',
+                            text: 'Avg. Programming Languages',
                         },
                     },
                     fill: {

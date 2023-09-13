@@ -33,7 +33,7 @@ export const ExpectedSalaryInternships = ({ data }) => {
                             style: {
                                 fontFamily: 'var(--font-secondary)',
                             },
-                            text: 'Number of Projects',
+                            text: 'Number of Internships',
                         },
                         type: 'categories',
                         categories: labels,
