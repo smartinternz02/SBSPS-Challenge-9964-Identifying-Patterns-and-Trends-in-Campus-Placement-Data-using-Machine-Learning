@@ -72,7 +72,7 @@ def predict_salary_api(feature_values):
         ]
     }
 
-    response_scoring = requests.post('https://eu-gb.ml.cloud.ibm.com/ml/v4/deployments/98b08fa0-f51c-4818-9a79-66acf66c2f55/predictions?version=2021-05-01', json=payload_scoring,
+    response_scoring = requests.post('https://eu-gb.ml.cloud.ibm.com/ml/v4/deployments/184e2b40-1d48-431e-91ee-f448ae9da7a9/predictions?version=2021-05-01', json=payload_scoring,
                                      headers={'Authorization': 'Bearer ' + mltoken})
     data = response_scoring.json()['predictions'][0]['values']
 

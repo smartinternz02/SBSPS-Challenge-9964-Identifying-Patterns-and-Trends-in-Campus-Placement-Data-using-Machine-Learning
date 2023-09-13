@@ -168,7 +168,7 @@ export const Analysis = ({ campusStats, onBack, downloadURL }) => {
                         </Stack>
                     </Grid>
 
-                    <Grid item md={6} xs={12} height={'100%'}>
+                    <Grid item md={6} xs={12}>
                         <HighAvgLeastEachBranch
                             data={
                                 campusStats.Highest_avg_least_sal_in_each_branch
