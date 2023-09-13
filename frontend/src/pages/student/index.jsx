@@ -452,12 +452,23 @@ export const Student = () => {
               </div>
               <div className={styles.grid_item}>
                 <TextField
-                  onChange={(e) =>
-                    setformDetails((prev) => ({
+                  onChange={(e) => {
+                    if (e.target.value < 0) {
+                      handleOpenSnackBar(
+                        'Make sure to use correct values',
+                        'error'
+                      )
+                      return
+                    }
+                    if (e.target.value > 10) {
+                      handleOpenSnackBar('exceeding the max limit', 'error')
+                      return
+                    }
+                    return setformDetails((prev) => ({
                       ...prev,
                       cgpa: e.target.value,
                     }))
-                  }
+                  }}
                   id="outlined-number"
                   label="Degree CGPA"
                   type="number"
@@ -493,12 +504,23 @@ export const Student = () => {
                   sx={{
                     ...formstyles,
                   }}
-                  onChange={(e) =>
-                    setformDetails((prev) => ({
+                  onChange={(e) => {
+                    if (e.target.value < 0) {
+                      handleOpenSnackBar(
+                        'Make sure to use correct values',
+                        'error'
+                      )
+                      return
+                    }
+                    if (e.target.value > 10) {
+                      handleOpenSnackBar('exceeding the max limit', 'error')
+                      return
+                    }
+                    return setformDetails((prev) => ({
                       ...prev,
                       inter_gpa: e.target.value,
                     }))
-                  }
+                  }}
                   id="outlined-number"
                   label="Intermediate GPA"
                   type="number"
@@ -538,12 +560,23 @@ export const Student = () => {
                   sx={{
                     ...formstyles,
                   }}
-                  onChange={(e) =>
-                    setformDetails((prev) => ({
+                  onChange={(e) => {
+                    if (e.target.value < 0) {
+                      handleOpenSnackBar(
+                        'Make sure to use correct values',
+                        'error'
+                      )
+                      return
+                    }
+                    if (e.target.value > 10) {
+                      handleOpenSnackBar('exceeding the max limit', 'error')
+                      return
+                    }
+                    return setformDetails((prev) => ({
                       ...prev,
                       ssc_gpa: e.target.value,
                     }))
-                  }
+                  }}
                   id="outlined-number"
                   label="SSC GPA"
                   type="number"
@@ -555,16 +588,30 @@ export const Student = () => {
                   sx={{
                     ...formstyles,
                   }}
-                  onChange={(e) =>
-                    setformDetails((prev) => ({
+                  onChange={(e) => {
+                    if (e.target.value < 0) {
+                      handleOpenSnackBar(
+                        'Make sure to use correct values',
+                        'error'
+                      )
+                      return
+                    }
+                    if (e.target.value > 10) {
+                      handleOpenSnackBar('exceeding the max limit', 'error')
+                      return
+                    }
+                    return setformDetails((prev) => ({
                       ...prev,
                       internships: e.target.value,
                     }))
-                  }
+                  }}
                   id="outlined-number"
                   label="Number Of Internships"
                   type="number"
                   value={formDetails.internships}
+                  InputProps={{
+                    inputProps: { min: '0', max: '10', step: '1' },
+                  }}
                 />
               </div>
               <div className={styles.grid_item}>
@@ -616,12 +663,24 @@ export const Student = () => {
                   sx={{
                     ...formstyles,
                   }}
-                  onChange={(e) =>
-                    setformDetails((prev) => ({
+                  value={formDetails.no_of_projects}
+                  onChange={(e) => {
+                    if (e.target.value < 0) {
+                      handleOpenSnackBar(
+                        'Make sure to use correct values',
+                        'error'
+                      )
+                      return
+                    }
+                    if (e.target.value > 20) {
+                      handleOpenSnackBar('exceeding the max limit', 'error')
+                      return
+                    }
+                    return setformDetails((prev) => ({
                       ...prev,
                       no_of_projects: e.target.value,
                     }))
-                  }
+                  }}
                   id="outlined-number"
                   label="Number Of Projects"
                   type="number"
@@ -675,12 +734,23 @@ export const Student = () => {
 
               <div className={styles.grid_item}>
                 <TextField
-                  onChange={(e) =>
-                    setformDetails((prev) => ({
+                  onChange={(e) => {
+                    if (e.target.value < 0) {
+                      handleOpenSnackBar(
+                        'Make sure to use correct values',
+                        'error'
+                      )
+                      return
+                    }
+                    if (e.target.value > 20) {
+                      handleOpenSnackBar('exceeding the max limit', 'error')
+                      return
+                    }
+                    return setformDetails((prev) => ({
                       ...prev,
                       no_of_programming_languages: e.target.value,
                     }))
-                  }
+                  }}
                   id="outlined-number"
                   label="Number Of Programming Languages"
                   type="number"
