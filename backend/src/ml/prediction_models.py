@@ -1,8 +1,15 @@
 import pandas as pd
 import numpy as np
 import os
+import pickle
 from src.ml.utils import convert_is_placed_to_zero_ifnot_placed, load_pickle_models, transform_placed_prediction, transform_salary_prediction, save_df_to_temp
 from src.ml.ml_deploy import predict_isplaced_api, predict_salary_api
+
+
+placed_model, salary_model = load_pickle_models()
+
+USE_DEPLOYED_MODELS = False if (os.getenv('USE_DEPLOYED_MODELS') == None) or (
+    int(os.getenv('USE_DEPLOYED_MODELS')) == 0) else True
 
 
 def get_domain_skills(domain_name):
@@ -193,10 +200,27 @@ def get_predicted_data(dataset):
     placed_prediction_feature_data = transform_placed_prediction(dataset)
     salary_prediction_feature_data = transform_salary_prediction(dataset)
 
-    isplaced_predictions, isplaced_probability = predict_isplaced_api(
-        placed_prediction_feature_data)
+    # is_placed prediction
 
-    salary_predictions = predict_salary_api(salary_prediction_feature_data)
+    if USE_DEPLOYED_MODELS is True:
+        isplaced_predictions, isplaced_probability = predict_isplaced_api(
+            placed_prediction_feature_data)
+    else:
+        isplaced_predictions = placed_model.predict(
+            placed_prediction_feature_data)
+        isplaced_probability = []
+        probabilities = placed_model.predict_proba(
+            placed_prediction_feature_data)
+        for prob in probabilities:
+            isplaced_probability.append(prob[1])
+
+    # salary_prediction
+
+    if USE_DEPLOYED_MODELS is True:
+        salary_predictions = predict_salary_api(salary_prediction_feature_data)
+    else:
+        salary_predictions = salary_model.predict(
+            salary_prediction_feature_data)
 
     salary_predictions = convert_is_placed_to_zero_ifnot_placed(
         isplaced_predictions, salary_predictions)

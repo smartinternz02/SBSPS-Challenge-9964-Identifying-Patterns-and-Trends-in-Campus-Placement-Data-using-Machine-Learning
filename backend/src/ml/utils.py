@@ -88,10 +88,11 @@ def transform_salary_prediction(df):
 
 
 def load_pickle_models():
+
     salary_model_path = os.path.join(
-        os.path.dirname(__file__), 'models', 'sal_model.pkl')
+        os.path.dirname(__file__), 'models', 'salary_model.pkl')
     placed_model_path = os.path.join(os.path.dirname(
-        __file__), 'models', 'Placed_model.pkl')
+        __file__), 'models', 'isplaced_model.pkl')
 
     salary_model = pickle.load(open(salary_model_path, 'rb'))
     is_placed_model = pickle.load(open(placed_model_path, 'rb'))
@@ -122,11 +123,9 @@ def deleteTempFiles():
         try:
             if os.path.isfile(file_path):
                 file_extension = os.path.splitext(file_path)[1]
-                print(file_extension)
                 if file_extension != '.txt':
                     os.remove(file_path)
 
-                    print(f"Deleted file: {file_path}")
         except Exception as e:
             print(f"Error deleting {file_path}: {e}")
 

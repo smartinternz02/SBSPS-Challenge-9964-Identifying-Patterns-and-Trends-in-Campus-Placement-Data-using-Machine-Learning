@@ -81,7 +81,6 @@ def create_app(test_config=None):
     def PredictStudentPlacement():
         try:
             data = request.json
-            # print(data)
             predictions = predict_student_placement(data)
             return predictions, 200
         except Exception as e:
@@ -212,7 +211,6 @@ def create_app(test_config=None):
     @cross_origin(origins='*')
     def RecommendSkills():
         body = request.get_json()
-        print("hit", body['skills'])
         url = "https://api.affinda.com/v3/resume_search/suggestion_skill?"
         skill = ""
         for i in body['skills']:
@@ -226,7 +224,6 @@ def create_app(test_config=None):
                 skill = i
 
             url = url + 'skills='+skill+'&'
-        print(url)
 
         headers = {
             "accept": "application/json",
